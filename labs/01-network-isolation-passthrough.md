@@ -5,6 +5,7 @@ This example demonstrates the basic proxy functionality of Kong Event Gateway, a
 ## Overview
 
 The setup provides:
+
 - Simple proxy configuration for Kafka
 - Anonymous authentication
 - Direct pass-through of Kafka operations
@@ -20,9 +21,9 @@ The snippet below contains the minimal configuration needed for a Kafka proxy:
 backend_clusters:
   - name: kafka-localhost
     bootstrap_servers:
-      - localhost:9092
-      - localhost:9093
-      - localhost:9094
+      - kafka1:9092
+      - kafka2:9093
+      - kafka3:9094
 
 listeners:
   port:
@@ -43,6 +44,7 @@ virtual_clusters:
 ```
 
 Key configuration points:
+
 - Virtual cluster listening on port 19092
 - Anonymous authentication for easy testing
 - Direct routing to backend Kafka cluster
@@ -59,6 +61,7 @@ Key configuration points:
 ## Testing
 
 Restart the data plane container to apply the new configuration:
+
 ```bash
 docker restart knep-konnect
 ```
@@ -66,6 +69,7 @@ docker restart knep-konnect
 Using `kafkactl`, you can test both direct and proxied connections:
 
 1. Direct connection to Kafka:
+
 ```bash
 kafkactl config use-context backend
 kafkactl create topic a-first-topic b-second-topic b-third-topic fourth-topic
@@ -73,6 +77,7 @@ kafkactl produce a-first-topic --value="Hello World"
 ```
 
 2. Connection through proxy:
+
 ```bash
 kafkactl config use-context team-a
 kafkactl consume a-first-topic --from-beginning --exit
@@ -81,6 +86,7 @@ kafkactl consume a-first-topic --from-beginning --exit
 ## Use Cases
 
 This basic proxy setup is ideal for:
+
 - Learning and testing Kong Event Gateway
 - Development environments
 - Simple Kafka proxy needs
