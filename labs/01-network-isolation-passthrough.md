@@ -1,4 +1,4 @@
-# Basic Kafka Proxy Example
+# Lab 01: Basic Kafka Proxy Example
 
 This example demonstrates the basic proxy functionality of Kong Event Gateway, allowing clients to connect to a Kafka cluster through a proxy layer with anonymous authentication.
 
@@ -58,18 +58,23 @@ Key configuration points:
 
 ## Testing
 
+Restart the data plane container to apply the new configuration:
+```bash
+docker restart knep-konnect
+```
+
 Using `kafkactl`, you can test both direct and proxied connections:
 
 1. Direct connection to Kafka:
 ```bash
-kafkactl config use-context default
+kafkactl config use-context backend
 kafkactl create topic a-first-topic b-second-topic b-third-topic fourth-topic
 kafkactl produce a-first-topic --value="Hello World"
 ```
 
 2. Connection through proxy:
 ```bash
-kafkactl config use-context virtual
+kafkactl config use-context team-a
 kafkactl consume a-first-topic --from-beginning --exit
 ```
 
