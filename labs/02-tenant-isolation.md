@@ -28,6 +28,8 @@ virtual_clusters:
       - type: anonymous
         mediation:
           type: anonymous
+    rewrite_ids:
+      type: prefix
     topic_rewrite:
       type: prefix
       prefix:
@@ -43,6 +45,8 @@ virtual_clusters:
       - type: anonymous
         mediation:
           type: anonymous
+    rewrite_ids:
+      type: prefix
     topic_rewrite:
       type: prefix
       prefix:
