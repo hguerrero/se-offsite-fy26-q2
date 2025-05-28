@@ -4,16 +4,12 @@ This repository contains materials for the Kong SE team workshop focused on enab
 
 ## Prerequisites
 
-- Docker v4.39 or higher
-- 8GB RAM available for containers
+- Docker Desktop v4.39 or higher (Windows/Mac)
+- 8GB RAM available
+- [jq](https://jqlang.github.io/jq/download/) installed
 - Basic knowledge of Kong and Kong Konnect
 - Basic knowledge of event-driven architecture
-- Kafka CLI tools:
-    - [kcat](https://github.com/edenhill/kcat)
-    - [kafkactl](https://github.com/segmentio/kafkactl)
-    - [kafka-topics](https://kafka.apache.org/documentation/#command_line_tools)
-    - [kafka-console-producer](https://kafka.apache.org/documentation/#command_line_tools)
-    - [kafka-console-consumer](https://kafka.apache.org/documentation/#command_line_tools)
+- Kafka CLI tool: [kafkactl](https://github.com/segmentio/kafkactl)
 
 ## Workshop Overview
 
