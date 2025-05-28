@@ -32,6 +32,8 @@ virtual_clusters:
       type: port
       port:
         min_broker_id: 1
+    rewrite_ids:
+      type: prefix        
     topic_rewrite:
       type: prefix
       prefix:
@@ -47,6 +49,8 @@ virtual_clusters:
       port:
         offset: 10000
         min_broker_id: 1
+    rewrite_ids:
+      type: prefix
     topic_rewrite:
       type: prefix
       prefix:
