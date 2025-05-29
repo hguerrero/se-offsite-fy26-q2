@@ -99,12 +99,30 @@ Test both authentication methods using `kafkactl`:
    kafkactl create topic secure-topic
    ```
 
-3. (Optional) Get token and use apache kafka shell scripts with oauthbreaker config
+## (Optional) Test with Apache Kafka shell scripts
+
+1. Download the latest Kafka 3.x distribution from the [Kafka website](https://kafka.apache.org/downloads)
+
+2. Unzip the file and navigate to the `bin` directory
+
+3. Create a config file for JWT authentication
+
+    ```bash
+    cat <<EOF > kafka-client.properties
+    security.protocol=SASL_PLAINTEXT
+    sasl.mechanism=OAUTHBEARER
+    sasl.jaas.config=org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required \\
+        clientId="kafka-client" \\
+        clientSecret="secret123" ;
+    sasl.login.callback.handler.class=org.apache.kafka.common.security.oauthbearer.secured.OAuthBearerLoginCallbackHandler
+    sasl.oauthbearer.token.endpoint.url=http://localhost:8180/realms/kafka-realm/protocol/openid-connect/token
+    EOF
+    ```
+
+4. Test JWT-authenticated access
 
    ```bash
-   # Get JWT token from Keycloak
-   TOKEN=$(curl -X POST http://localhost:8180/realms/kafka-realm/protocol/openid-connect/token \
-   -d "grant_type=client_credentials" \
-   -d "client_id=kafka-client" \
-   -d "client_secret=secret123" | jq -r '.access_token')
+   ./kafka-topics.sh --list --bootstrap-server localhost:19092 --command-config kafka-client.properties
    ```
+
+   Should see information on the token expriation and all topics visible to team-a
