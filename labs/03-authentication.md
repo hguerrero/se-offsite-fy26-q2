@@ -94,19 +94,17 @@ Test both authentication methods using `kafkactl`:
 2. JWT-authenticated access (Team-A):
 
    ```bash
-   # Get JWT token from Keycloak
-   TOKEN=$(curl -X POST http://localhost:8180/realms/kafka-realm/protocol/openid-connect/token \
-     -d "grant_type=client_credentials" \
-     -d "client_id=kafka-client" \
-     -d "client_secret=secret123" | jq -r '.access_token')
-
-   # Set token for kafkactl
-   export KAFKA_TOKEN="$TOKEN"
-
-   # Switch context and create topic
+   # Switch context and attempt to create topic
    kafkactl config use-context secured
    kafkactl create topic secure-topic
+   ```
 
-   # Verify topic creation
-   kafkactl list topics
+3. (Optional) Get token and use apache kafka shell scripts with oauthbreaker config
+
+   ```bash
+   # Get JWT token from Keycloak
+   TOKEN=$(curl -X POST http://localhost:8180/realms/kafka-realm/protocol/openid-connect/token \
+   -d "grant_type=client_credentials" \
+   -d "client_id=kafka-client" \
+   -d "client_secret=secret123" | jq -r '.access_token')
    ```
