@@ -22,8 +22,8 @@ backend_clusters:
   - name: kafka-localhost
     bootstrap_servers:
       - kafka1:9092
-      - kafka2:9093
-      - kafka3:9094
+      - kafka2:9092
+      - kafka3:9092
 
 listeners:
   port:
