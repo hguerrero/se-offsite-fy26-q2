@@ -1,13 +1,10 @@
 contexts:
     backend:
         brokers:
-            - localhost:9092
+            - localhost:9094
     default:
         brokers:
-            - localhost:9092
-    redpanda:
-        brokers:
-            - localhost:9192
+            - localhost:9094
     secured:
         brokers:
             - localhost:29092
