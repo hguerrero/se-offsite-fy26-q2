@@ -118,19 +118,19 @@ Using kafkactl, you can test the encryption:
 1. Produce a message through the proxy (will be encrypted):
 
 ```bash
-echo "secret message" | kafkactl --context virtual produce my-topic
+echo "secret message" | kafkactl --context team-a produce my-topic
 ```
 
 2. Consume through the proxy (will be decrypted):
 
 ```bash
-kafkactl --context virtual consume my-topic --from-beginning
+kafkactl --context team-a consume my-topic --from-beginning
 ```
 
 3. Consume directly from Kafka (will be encrypted):
 
 ```bash
-kafkactl --context default consume my-topic --from-beginning
+kafkactl --context default consume a-my-topic --from-beginning
 ```
 
 ## Configuration Details
