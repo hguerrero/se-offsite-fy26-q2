@@ -5,6 +5,7 @@ This example demonstrates how to configure Kong Event Gateway to automatically f
 ## Overview
 
 The setup provides:
+
 - Automatic topic name prefixing
 - Prefix-based topic filtering
 - Transparent operation for clients
@@ -54,6 +55,7 @@ virtual_clusters:
 ```
 
 Key configuration points:
+
 - Two virtual clusters with different prefixes: "a-" for team-a and "b-" for team-b
 - Team-a accessible on port 19092, team-b on port 29092
 - All topics accessed through each proxy will be prefixed accordingly
@@ -72,51 +74,73 @@ Key configuration points:
 ## Testing topic filtering
 
 Restart the data plane container to apply the new configuration:
+
 ```bash
 docker restart knep-konnect
 ```
 
 Using `kafkactl`, test the topic filtering:
 
-1. Create topics directly in Kafka if you haven't already:
-    ```bash
-    kafkactl config use-context backend
-    kafkactl create topic a-first-topic b-second-topic b-third-topic fourth-topic
-    ```
+1. Create topics directly in Kafka. You can skip this step if you completed module 1:
+
+   ```bash
+   kafkactl config use-context backend
+
+   kafkactl create topic a-first-topic b-second-topic b-third-topic fourth-topic
+   ```
 
 2. Access team-a topics through the proxy:
-    ```bash
-    kafkactl config use-context team-a
-    kafkactl get topics
-    ```
-    Should only see "first-topic" (without the "a-" prefix)
+
+   ```bash
+   kafkactl config use-context team-a
+
+   kafkactl get topics
+   ```
+
+   Should only see "first-topic" (without the "a-" prefix)
 
 3. Access team-b topics through the proxy:
-    ```bash
-    kafkactl config use-context team-b
-    kafkactl get topics
-    ```
-    Should only see "second-topic" and "third-topic" (without the "b-" prefix)
+
+   ```bash
+   kafkactl config use-context team-b
+
+   kafkactl get topics
+   ```
+
+   Should only see "second-topic" and "third-topic" (without the "b-" prefix)
 
 ## Testing topic name overlap
 
 1. Create a new topic through the team-a proxy:
-    ```bash
-    kafkactl config use-context team-a
-    kafkactl create topic my-new-topic
-    ```
-    Should see "my-new-topic" in the list of team-a topics
+
+   ```bash
+   kafkactl config use-context team-a
+
+   kafkactl create topic my-new-topic
+
+   kafkactl get topics
+   ```
+
+   Should see "my-new-topic" in the list of team-a topics
 
 2. Create a new topic through the team-b proxy:
-    ```bash
-    kafkactl config use-context team-b
-    kafkactl create topic my-new-topic
-    ```
-    Should see "my-new-topic" in the list of team-b topics
+
+   ```bash
+   kafkactl config use-context team-b
+
+   kafkactl create topic my-new-topic
+
+   kafkactl get topics
+   ```
+
+   Should see "my-new-topic" in the list of team-b topics
 
 3. Verify the actual topic names in Kafka:
-    ```bash
-    kafkactl config use-context backend
-    kafkactl get topics
-    ```
-    Should see all topics with their prefixes: "a-first-topic", "b-second-topic", etc.
+
+   ```bash
+   kafkactl config use-context backend
+
+   kafkactl get topics
+   ```
+
+   Should see all topics with their prefixes: "a-first-topic", "b-second-topic", etc.
