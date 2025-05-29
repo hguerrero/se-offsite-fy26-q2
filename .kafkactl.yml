@@ -7,7 +7,7 @@ contexts:
             - localhost:9094
     secured:
         brokers:
-            - localhost:29092
+            - localhost:19092
     team-a:
         brokers:
             - localhost:19092
@@ -17,4 +17,4 @@ contexts:
     virtual:
         brokers:
             - localhost:19092
-current-context: team-a
+current-context: default

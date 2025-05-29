@@ -29,7 +29,7 @@ virtual_clusters:
       - type: sasl_oauth_bearer
         sasl_oauth_bearer:
           jwks:
-            endpoint: http://localhost:8180/realms/kafka-realm/protocol/openid-connect/certs
+            endpoint: http://keycloak:8080/realms/kafka-realm/protocol/openid-connect/certs
             timeout: "1s"
         mediation:
           type: anonymous
