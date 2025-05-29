@@ -73,7 +73,9 @@ Using `kafkactl`, you can test both direct and proxied connections:
 
 ```bash
 kafkactl config use-context backend
+
 kafkactl create topic a-first-topic b-second-topic b-third-topic fourth-topic
+
 kafkactl produce a-first-topic --value="Hello World"
 ```
 
@@ -81,6 +83,7 @@ kafkactl produce a-first-topic --value="Hello World"
 
 ```bash
 kafkactl config use-context team-a
+
 kafkactl consume a-first-topic --from-beginning --exit
 ```
 
