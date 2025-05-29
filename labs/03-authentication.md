@@ -97,7 +97,7 @@ Test both authentication methods using `kafkactl`:
 
    ```bash
    # Configure kafkactl for anonymous access
-   kafkactl config use-context virtual
+   kafkactl config use-context team-b
 
    # Create and verify topic
    kafkactl create topic test-topic
