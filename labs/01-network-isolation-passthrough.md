@@ -29,6 +29,7 @@ listeners:
   port:
     - listen_address: 0.0.0.0
       listen_port_start: 19092
+      advertise_host: localhost
 
 virtual_clusters:
   - name: team-a
