@@ -75,10 +75,6 @@ This guide provides instructions for setting up the workshop environment using D
 ### Kafka Cluster
 
 - 3-node Kafka cluster using KRaft (no ZooKeeper)
-- Broker endpoints:
-  - localhost:9092
-  - localhost:9093
-  - localhost:9094
 
 ### Keycloak
 
