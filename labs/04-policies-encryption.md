@@ -109,6 +109,12 @@ Key configuration points:
 
 ## Testing
 
+Restart the data plane container to apply the new configuration:
+
+```bash
+docker restart knep-konnect
+```
+
 Using kafkactl, you can test the encryption:
 
 1. Produce a message through the proxy (will be encrypted):

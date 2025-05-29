@@ -72,6 +72,12 @@ virtual_clusters:
 
 ## Testing the Configuration
 
+Restart the data plane container to apply the new configuration:
+
+```bash
+docker restart knep-konnect
+```
+
 Test both authentication methods using `kafkactl`:
 
 1. Anonymous access (Team-B):
@@ -107,17 +113,17 @@ Test both authentication methods using `kafkactl`:
 
 3. Create a config file for JWT authentication
 
-    ```bash
-    cat <<EOF > kafka-client.properties
-    security.protocol=SASL_PLAINTEXT
-    sasl.mechanism=OAUTHBEARER
-    sasl.jaas.config=org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required \\
-        clientId="kafka-client" \\
-        clientSecret="secret123" ;
-    sasl.login.callback.handler.class=org.apache.kafka.common.security.oauthbearer.secured.OAuthBearerLoginCallbackHandler
-    sasl.oauthbearer.token.endpoint.url=http://localhost:8180/realms/kafka-realm/protocol/openid-connect/token
-    EOF
-    ```
+   ```bash
+   cat <<EOF > kafka-client.properties
+   security.protocol=SASL_PLAINTEXT
+   sasl.mechanism=OAUTHBEARER
+   sasl.jaas.config=org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required \\
+       clientId="kafka-client" \\
+       clientSecret="secret123" ;
+   sasl.login.callback.handler.class=org.apache.kafka.common.security.oauthbearer.secured.OAuthBearerLoginCallbackHandler
+   sasl.oauthbearer.token.endpoint.url=http://localhost:8180/realms/kafka-realm/protocol/openid-connect/token
+   EOF
+   ```
 
 4. Test JWT-authenticated access
 
