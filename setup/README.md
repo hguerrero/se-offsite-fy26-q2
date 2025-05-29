@@ -25,12 +25,14 @@ This guide provides instructions for setting up the workshop environment using D
 1. Create a Control Plane in Konnect. Use the Konnect API to create a new `CLUSTER_TYPE_KAFKA_NATIVE_EVENT_PROXY` Control Plane:
 
    ```bash
-   KONNECT_CONTROL_PLANE_ID=$(curl -X POST "https://us.api.konghq.com/v2/control-planes" \
-   -H "Authorization: Bearer $KONNECT_TOKEN" \
-   --json '{
-   "name": "KNEP Workshop",
-   "cluster_type": "CLUSTER_TYPE_KAFKA_NATIVE_EVENT_PROXY"
-   }' | jq -r '.id')
+   export KONNECT_CONTROL_PLANE_ID=$(
+      curl -X POST "https://us.api.konghq.com/v2/control-planes" \
+      -H "Authorization: Bearer $KONNECT_TOKEN" \
+      --json '{
+         "name": "KNEP Workshop",
+         "cluster_type": "CLUSTER_TYPE_KAFKA_NATIVE_EVENT_PROXY"
+      }' -s | jq -r '.id'
+   )
    ```
 
 1. Navigate to the `/setup` directory:
@@ -42,7 +44,7 @@ This guide provides instructions for setting up the workshop environment using D
 1. Create an .env file with the following command:
 
    ```bash
-   cat <<EOF > knep.env
+   cat <<'EOF' > knep.env
    KONNECT_API_TOKEN=${KONNECT_TOKEN}
    KONNECT_API_HOSTNAME=us.api.konghq.com
    KONNECT_CONTROL_PLANE_ID=${KONNECT_CONTROL_PLANE_ID}
@@ -77,13 +79,12 @@ This guide provides instructions for setting up the workshop environment using D
 
 1. Verify realm and client configuration:
    - Login to the admin console
-   - Navigate to "Realms" in the left sidebar
+   - Navigate to "Manage realms" in the left sidebar
    - Confirm "kafka-realm" is listed and select it
    - Go to "Clients" section
    - Verify "kafka-client" exists with:
      - Client authentication: ON
-     - Service accounts enabled: ON
-     - Standard flow enabled: ON
+     - Service accounts roles: checked
 
 ## Environment Details
 
