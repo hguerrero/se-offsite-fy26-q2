@@ -25,7 +25,7 @@ virtual_clusters:
         sasl_oauth_bearer:
           jwks:
             endpoint: http://localhost:8180/realms/kafka-realm/protocol/openid-connect/certs
-            refresh: "1s"
+            timeout: "1s"
         mediation:
           type: anonymous
     backend_cluster_name: kafka-localhost
