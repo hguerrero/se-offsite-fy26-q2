@@ -114,9 +114,11 @@ Test both authentication methods using `kafkactl`:
 
    ```bash
    # Switch context and attempt to create topic
-   kafkactl config use-context secured
+   kafkactl config use-context team-a
    kafkactl create topic secure-topic
    ```
+
+   You should see an error since JWT authentication is required. If you want to validate JWT authentication, you can follow the **optional** steps in the next section.
 
 ## (Optional) Test with Apache Kafka shell scripts
 
