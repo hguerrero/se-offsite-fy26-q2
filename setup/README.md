@@ -33,10 +33,25 @@ This guide provides instructions for setting up the workshop environment using D
    }' | jq -r '.id')
    ```
 
-1. Navigate to the `/setup` directory and start the environment with a local Kafka cluster and the Kong Native Event Proxy (KNEP):
+1. Navigate to the `/setup` directory:
 
    ```bash
    cd setup
+   ```
+
+1. Create an .env file with the following command:
+
+   ```bash
+   cat <<EOF > knep.env
+   KONNECT_API_TOKEN=${KONNECT_TOKEN}
+   KONNECT_API_HOSTNAME=us.api.konghq.com
+   KONNECT_CONTROL_PLANE_ID=${KONNECT_CONTROL_PLANE_ID}
+   EOF
+   ```
+
+1. Start the environment with a local Kafka cluster and the Kong Native Event Proxy (KNEP):
+
+   ```bash
    docker compose up -d
    ```
 
