@@ -28,7 +28,7 @@ This guide provides instructions for setting up the workshop environment using D
    KONNECT_CONTROL_PLANE_ID=$(curl -X POST "https://us.api.konghq.com/v2/control-planes" \
    -H "Authorization: Bearer $KONNECT_TOKEN" \
    --json '{
-   "name": "KNEP getting started",
+   "name": "KNEP Workshop",
    "cluster_type": "CLUSTER_TYPE_KAFKA_NATIVE_EVENT_PROXY"
    }' | jq -r '.id')
    ```
