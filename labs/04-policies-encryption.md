@@ -18,6 +18,19 @@ The setup provides:
 The snippet below demonstrates message encryption configuration with multiple virtual clusters:
 
 ```yaml
+backend_clusters:
+  - name: kafka-localhost
+    bootstrap_servers:
+      - kafka1:9092
+      - kafka2:9092
+      - kafka3:9092
+
+listeners:
+  port:
+    - listen_address: 0.0.0.0
+      listen_port_start: 19092
+      advertised_host: localhost
+
 virtual_clusters:
   - name: team-a
     backend_cluster_name: kafka-localhost
