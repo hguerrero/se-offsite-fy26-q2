@@ -105,8 +105,8 @@ Test both authentication methods using `kafkactl`:
 
    # Switch context and create topic
    kafkactl config use-context secured
-   kafkactl topic create secure-topic
+   kafkactl create topic secure-topic
 
    # Verify topic creation
-   kafkactl topic list
+   kafkactl list topics
    ```
