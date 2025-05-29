@@ -26,11 +26,7 @@ virtual_clusters:
       port:
         min_broker_id: 1
     authentication:
-      - type: sasl_oauth_bearer
-        sasl_oauth_bearer:
-          jwks:
-            endpoint: http://keycloak:8080/realms/kafka-realm/protocol/openid-connect/certs
-            timeout: "1s"
+      - type: anonymous
         mediation:
           type: anonymous
     rewrite_ids:
@@ -118,19 +114,19 @@ Using kafkactl, you can test the encryption:
 1. Produce a message through the proxy (will be encrypted):
 
 ```bash
-echo "secret message" | kafkactl --context team-a produce my-topic
+echo "secret message" | kafkactl --context team-b produce my-topic
 ```
 
 2. Consume through the proxy (will be decrypted):
 
 ```bash
-kafkactl --context team-a consume my-topic --from-beginning
+kafkactl --context team-b consume my-topic --from-beginning
 ```
 
 3. Consume directly from Kafka (will be encrypted):
 
 ```bash
-kafkactl --context default consume a-my-topic --from-beginning
+kafkactl --context default consume b-my-topic --from-beginning
 ```
 
 ## Configuration Details
