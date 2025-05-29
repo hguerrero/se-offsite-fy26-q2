@@ -5,6 +5,7 @@ This lab demonstrates how to configure Kong Event Gateway for automatic message 
 ## Overview
 
 The setup provides:
+
 - Automatic encryption of messages during production
 - Automatic decryption of messages during consumption
 - Symmetric key encryption using a 128-bit key
@@ -33,7 +34,7 @@ virtual_clusters:
         mediation:
           type: anonymous
     rewrite_ids:
-      type: prefix          
+      type: prefix
     topic_rewrite:
       type: prefix
       prefix:
@@ -59,17 +60,17 @@ virtual_clusters:
       - policies:
           - type: policy
             policy:
-              name: encrypt 
+              name: encrypt
               type: encrypt
               encrypt:
-                failure: 
+                failure:
                   mode: error
                 encrypt:
                   - type: value
                     id: "static://key-0"
                 key_sources:
                   - type: key_source
-                    key_source:                
+                    key_source:
                       type: static
                       name: inline-key
                       static:
@@ -91,7 +92,7 @@ virtual_clusters:
                   - type: value
                 key_sources:
                   - type: key_source
-                    key_source:                
+                    key_source:
                       type: static
                       name: inline-key
                       static:
@@ -103,6 +104,7 @@ virtual_clusters:
 ```
 
 Key configuration points:
+
 - `produce_policies` section configures encryption
 - `consume_policies` section configures decryption
 - `failure: mode: error` ensures policy failure results in an error
@@ -114,18 +116,21 @@ Key configuration points:
 Using kafkactl, you can test the encryption:
 
 1. Produce a message through the proxy (will be encrypted):
+
 ```bash
-echo "secret message" | kafkactl -c virtual produce my-topic
+echo "secret message" | kafkactl --context team-a produce my-topic
 ```
 
 2. Consume through the proxy (will be decrypted):
+
 ```bash
-kafkactl -c virtual consume my-topic
+kafkactl --context team-a consume my-topic --from-beginning
 ```
 
 3. Consume directly from Kafka (will be encrypted):
+
 ```bash
-kafkactl -c default consume my-topic
+kafkactl --context default consume a-my-topic --from-beginning
 ```
 
 ## Configuration Details
@@ -150,6 +155,7 @@ The configuration includes:
 Common issues:
 
 1. Encryption failures:
+
    - Verify the key is correctly base64 encoded
    - Ensure the key is exactly 16 bytes (128 bits) before base64 encoding
 
