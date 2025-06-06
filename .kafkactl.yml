@@ -16,7 +16,7 @@ contexts:
             - localhost:29092
     sni:
         brokers:
-            - bootstrap.team-b.127.0.0.1.nip.io:8443
+            - bootstrap.team-b.127-0-0-1.sslip.io:8443
         tls:
             enabled: true
             ca: setup/config/certs/ca.crt
