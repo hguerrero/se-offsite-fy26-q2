@@ -1,0 +1,21 @@
+[req]
+distinguished_name = req_distinguished_name
+req_extensions = v3_req
+prompt = no
+
+[req_distinguished_name]
+C = US
+ST = California
+L = San Francisco
+O = Kong Inc
+OU = Event Gateway Workshop
+CN = *.team-b.127.0.0.1.nip.io
+
+[v3_req]
+keyUsage = keyEncipherment, dataEncipherment
+extendedKeyUsage = serverAuth
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = *.team-b.127.0.0.1.nip.io
+DNS.2 = team-b.127.0.0.1.nip.io

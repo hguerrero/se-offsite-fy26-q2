@@ -63,7 +63,7 @@ services:
     command: start-dev --import-realm
     volumes:
       - ./config/realm-export.json:/opt/keycloak/data/import/realm-export.json
-  
+
   knep:
     image: kong/kong-native-event-proxy:latest
     container_name: knep-konnect
@@ -75,11 +75,15 @@ services:
       - "19092-19192:19092-19192"
       - "29092-29192:29092-29192"
       - "8080:8080"
+      - "8443:8443"
     env_file: "knep.env"
     environment:
       KNEP__RUNTIME__DRAIN_DURATION: 1s # makes shutdown quicker, not recommended to be set like this in production 
+      # KNEP__OBSERVABILITY__LOG_FLAGS: "info,knep=debug" # Uncomment for debug logging
     healthcheck:
       test: curl -f http://localhost:8080/health/probes/liveness
       interval: 10s
       timeout: 5s
       retries: 5
+    volumes:
+      - ./config/certs:/var/tls

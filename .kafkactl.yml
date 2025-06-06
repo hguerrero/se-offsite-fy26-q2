@@ -14,6 +14,16 @@ contexts:
     team-b:
         brokers:
             - localhost:29092
+    sni:
+        brokers:
+            - bootstrap.team-b.127.0.0.1.nip.io:8443
+        tls:
+            enabled: true
+            ca: setup/config/certs/ca.crt
+            # cert: setup/config/certs/tls.crt
+            # certKey: setup/config/certs/tls.key
+            # set insecure to true to ignore all tls verification (defaults to false)
+            insecure: true
     virtual:
         brokers:
             - localhost:19092
